@@ -45,6 +45,8 @@ export const createTaskLists = (task) => {
   descriptionElement.textContent = task.description;
 
   descriptionElement.addEventListener('click', () => {
+    // Change the cursor to a text input cursor
+    descriptionElement.style.cursor = 'text';
     editTaskDescription(task);
   });
 
@@ -75,6 +77,19 @@ export const createTaskLists = (task) => {
   listItemElement.addEventListener('dragstart', (event) => {
     const { target } = event;
     event.dataTransfer.setData('text/plain', target.dataset.index);
+
+    // Create a custom drag image element
+    const customDragImage = document.createElement('div');
+    customDragImage.textContent = target.textContent;
+    customDragImage.style.backgroundColor = '#f5f5a3';
+    customDragImage.style.color = '#000';
+    customDragImage.style.padding = '8px';
+    customDragImage.style.border = '2px solid #555';
+
+    // Set the custom drag image
+    event.dataTransfer.setDragImage(customDragImage, 10, 10);
+
+    // Set the opacity of the dragged element
     target.style.opacity = 0.4;
   });
 
